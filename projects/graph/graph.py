@@ -3,6 +3,8 @@ Simple graph implementation
 """
 from util import Stack, Queue  # These may come in handy
 
+visited_nodes = []
+
 
 class Graph:
 
@@ -44,16 +46,20 @@ class Graph:
 
         # while our queue isn't empty
         # dequeue whatever's at the front of our line, this is our current_node
-        while q.size > 0:
+        while q.size() > 0:
             current_node = q.dequeue()
 
             # if we haven't visited this node yet,
             if current_node not in visited:
+                # print the vertex
+                print(current_node)
+
                 # mark as visited
                 visited.add(current_node)
-                # print the vertex
+
                 # get its neighbors
                 neighbors = self.get_neighbors(current_node)
+
                 # for each of the neighbors,
                 for neighbor in neighbors:
                     # add to the queue
@@ -64,19 +70,35 @@ class Graph:
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
         # make a stack
+        s = Stack()
+
         # push on our starting node
+        s.push(starting_vertex)
 
         # make a set to track if we've been here before
+        visited = set()
 
         # while our stack isn't empty
-        # # pop off whatever's on top, this is our current_node
-        # # if we haven't visited this vertex before,
-        # # # mark as visited
-        # # # get its neighbors
-        # # # for each of the neighbors,
-        # # # # add to our stack
+        while s.size() > 0:
+            # pop off whatever's on top, this is our current_node
+            current_node = s.pop()
+
+            # if we haven't visited this vertex before,
+            if current_node not in visited:
+                # print current vertex
+                print(current_node)
+
+                # mark as visited
+                visited.add(current_node)
+
+                # get its neighbors
+                neighbors = self.get_neighbors(current_node)
+
+                # for each of the neighbors,
+                for neighbor in neighbors:
+                    # add to our stack
+                    s.push(neighbor)
 
     def dft_recursive(self, starting_vertex):
         """
@@ -85,7 +107,15 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        current_node = starting_vertex
+        print(current_node)
+
+        if current_node not in visited_nodes:
+            visited_nodes.append(current_node)
+
+            for vert in self.get_neighbors(current_node):
+                if vert not in visited_nodes:
+                    self.dft_recursive(vert)
 
     def bfs(self, starting_vertex, destination_vertex):
         """
