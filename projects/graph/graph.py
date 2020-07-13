@@ -123,7 +123,18 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+        start = starting_vertex
+        q = Queue()
+        q.enqueue([starting_vertex])
+
+        while q.size() > 0:
+            current_path = q.dequeue()
+            if current_path[-1] == destination_vertex:
+                return current_path
+
+            for vert in self.get_neighbors(current_path[-1]):
+                new_path = [*current_path, vert]
+                q.enqueue(new_path)
 
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -131,7 +142,18 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        pass  # TODO
+        start = starting_vertex
+        s = Stack()
+        s.push([starting_vertex])
+
+        while s.size() > 0:
+            current_path = s.pop()
+            if current_path[-1] == destination_vertex:
+                return current_path
+
+            for vert in self.get_neighbors(current_path[-1]):
+                new_path = [*current_path, vert]
+                s.push(new_path)
 
     def dfs_recursive(self, starting_vertex, destination_vertex):
         """
