@@ -1,3 +1,14 @@
+Question: Why can't we just use a traversal?
+
+- Traversal will just visit all the nodes
+- We want a list of directions to guide us step by step
+
+- Also, we will want to minimize the number of steps
+
+Translating into Graph Terminology
+Nodes: rooms
+Edges: exits
+
 ## Description
 
 You are provided with a pre-generated graph consisting of 500 rooms. You are responsible for filling `traversal_path` with directions that, when walked in order, will visit every room on the map at least once.
