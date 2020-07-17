@@ -121,27 +121,6 @@ class SocialGraph:
 
         return visited
 
-        # # Create a queue for BFS to determine shortest path
-        # q = Queue()
-
-        # # Enqueue the path to the passed in user
-        # q.enqueue([user_id])
-
-        # # While items are in the queue
-        # while q.size() > 0:
-        #     # Dequeue the current path
-        #     path = q.dequeue()
-
-        #     if not visited.get(path[-1], None):
-        #         visited[path[-1]] = path
-
-        #         for friend in self.friendships[path[-1]]:
-        #             friend_path = list(path)
-        #             friend_path.append(friend)
-        #             q.enqueue(friend_path)
-
-        # return visited
-
 
 if __name__ == '__main__':
     sg = SocialGraph()
