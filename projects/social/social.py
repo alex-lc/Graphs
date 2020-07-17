@@ -33,6 +33,7 @@ class SocialGraph:
         self.users[self.last_id] = User(name)
         self.friendships[self.last_id] = set()
 
+    # Fisher Yates Shuffle from randomness lesson
     def fisher_yates_shuffle(self, l):
         for i in range(0, len(l)):
             random_index = random.randint(i, len(l) - 1)
@@ -53,7 +54,7 @@ class SocialGraph:
         self.users = {}
         self.friendships = {}
 
-        # Add users
+        # Add users based on number of users passed in
         for user in range(num_users):
             self.add_user(user)
 
@@ -66,10 +67,10 @@ class SocialGraph:
                 friendship = (user, friend)
                 friendships.append(friendship)
 
-        # Shuffle the list
+        # Shuffle the list with Fisher Yates Shuffle
         self.fisher_yates_shuffle(friendships)
 
-        # Take as many as we need
+        # Take as many friendships as we need based on our average number
         total_friendships = num_users * avg_friendships
 
         random_friendships = friendships[:total_friendships//2]
@@ -87,25 +88,59 @@ class SocialGraph:
 
         The key is the friend's ID and the value is the path.
         """
+
+        # Instructor Solution
+
+        # Plan: BFT, use dictionary as visited
+
         visited = {}  # Note that this is a dictionary, not a set
 
-        # Create a queue for BFS
         q = Queue()
         q.enqueue([user_id])
 
-        # While items are in the queue
+        # while q isn't empty
         while q.size() > 0:
-            path = q.dequeue()
+            # dequeue the current path
+            current_path = q.dequeue()
 
-            if not visited.get(path[-1], None):
-                visited[path[-1]] = path
+            # grab last vertex from path (current user)
+            current_user = current_path[-1]
 
-                for friend in self.friendships[path[-1]]:
-                    friend_path = list(path)
-                    friend_path.append(friend)
-                    q.enqueue(friend_path)
+            # if it hasn't been visited,
+            if current_user not in visited:
+                # add to our visited dictionary
+                visited[current_user] = current_path
+
+                friends = self.friendships[current_user]
+
+                # then enqueue paths to each of our neighbors
+                for friend in friends:
+                    path_to_friend = current_path + [friend]
+
+                    q.enqueue(path_to_friend)
 
         return visited
+
+        # # Create a queue for BFS to determine shortest path
+        # q = Queue()
+
+        # # Enqueue the path to the passed in user
+        # q.enqueue([user_id])
+
+        # # While items are in the queue
+        # while q.size() > 0:
+        #     # Dequeue the current path
+        #     path = q.dequeue()
+
+        #     if not visited.get(path[-1], None):
+        #         visited[path[-1]] = path
+
+        #         for friend in self.friendships[path[-1]]:
+        #             friend_path = list(path)
+        #             friend_path.append(friend)
+        #             q.enqueue(friend_path)
+
+        # return visited
 
 
 if __name__ == '__main__':

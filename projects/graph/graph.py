@@ -117,6 +117,18 @@ class Graph:
                 if vert not in visited_nodes:
                     self.dft_recursive(vert)
 
+        # instructor solution shown in lecture
+            # mark this vertex as visited
+                # --> visited.add(starting_vertex)
+                # --> print(starting_vertex)
+            # for each neighbor
+                # --> neighbors = self.get_neighbors(starting_vertex)
+                # --> for neighbor in neighbors:
+                    # if it's not visited,
+                    # --> if neighbors not in visited:
+                    # recurse on the neighbor
+                    # --> self.dft_recursive(neighbor, visited)
+
     def bfs(self, starting_vertex, destination_vertex):
         """
         Return a list containing the shortest path from
@@ -134,6 +146,40 @@ class Graph:
             for vert in self.get_neighbors(current_path[-1]):
                 new_path = [*current_path, vert]
                 q.enqueue(new_path)
+
+        # --> instructor solution from lecture
+        # make a queue
+        # q = Queue()
+
+        # # make a set to track nodes we've visited
+        # visited = set()
+
+        # path = [starting_vertex]
+
+        # q.enqueue(path)
+
+        # # while queue isn't empty
+        # while q.size() > 0:
+        #     # dequeue the node at the front of the line
+        #     current_path = q.dequeue()
+        #     current_node = current_path[-1]
+
+        #     # if this node is our target node
+        #     if current_node == destination_vertex:
+        #         # return it, return TRUE
+        #         return current_path
+
+        #     # if not visited
+        #     if current_node not in visited:
+        #         # mark as visited
+        #         visited.add(current_node)
+        #         # get its neighbors
+        #         neighbors = self.get_neighbors(current_node)
+        #         # for each neighbor, add to our queue
+        #         for neighbor in neighbors:
+        #             path_copy = current_path[:]
+        #             path_copy.append(neighbor)
+        #             q.enqueue(path_copy)
 
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -178,6 +224,31 @@ class Graph:
                     neighbor, destination_vertex, visited, new_path)
                 if neighbor_path:
                     return neighbor_path
+
+    # instructor solution from lecture
+    # def dfs_recursive(self, vertex, destination_vertex, path=[], visited=set()):
+    #     # mark our node as visited
+    #     visited.add(vertex)
+
+    #     # check if it's our target node, if so return
+    #     if vertex == destination_vertex:
+    #         return path
+
+    #     if len(path) == 0:
+    #         path.append(vertex)
+
+    #     # iterate over neighbors
+    #     neighbors = self.get_neighbors(vertex)
+    #     # check if visited
+    #     for neighbor in neighbors:
+    #         if neighbor not in visited:
+    #             # if not, recurse
+    #             result = self.dfs_recursive(
+    #                 neighbor, destination_vertex, path + [neighbor], visited)
+    #             # if this recursion returns a path,
+    #             if result is not None:
+    #                 # return from here
+    #                 return result
 
 
 if __name__ == '__main__':
